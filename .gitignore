@@ -1,0 +1,5 @@
+/static/model/model_resnet.h5
+explain.txt
+/.pytest_cache
+/__pycache__
+/venv

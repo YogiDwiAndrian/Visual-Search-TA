@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2 style="text-align:center;">IMPLEMENTASI DEEP LEARNING UNTUK SISTEM PENCARIAN GAMBAR PRODUK MENGGUNAKAN ALGORITMA CONVOLUTIONAL NEURAL NETWORK (CNN)</h2>
+            <br>
+            <br>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" class="form-control" name="query_img" accept="image/png, image/jpeg, image/jpg"><br>
+                <input type="submit" class="btn btn-primary">
+            </form>
+            {% if ext %}
+            <br>
+            <br>
+            <div class="alert alert-danger" role="alert">
+                {{ext}}
+              </div>
+              {% endif %}
+            <h2>Query:</h2>
+            {% if query_path %}
+            <img src="data:;base64,{{ query_path }}" width="200px">
+            {% endif %}
+            <br>
+            <br>
+            <!-- <h4>Urutan Hasil Klasifikasi: {{ probability }}</h4> -->
+            <h2>Proses CNN:</h2>
+            <label for="2">Array gambar untuk diinputkan ke model : </label>
+            <br>
+            <textarea id="2" name="2" rows="4" cols="50">
+                {{ tensor }}
+            </textarea>
+            <br>
+            <label for="2">Hasil setelah dimasukkan model CNN (probabilitas masing-masing kelas): </label>
+            <br>
+            <textarea id="2" name="2" rows="4" cols="50">
+                {{ pred }}
+            </textarea>
+            <br>
+            <label for="2">Di urutkan dari probabilitas yang terbesar sesuai index hasil CNN : </label>
+            <br>
+            <textarea id="2" name="2" rows="4" cols="50">
+                {{ sort }}
+            </textarea>
+            <label for="2">Berikut index dan nama kelas : </label>
+            <textarea id="2" name="2" rows="4" cols="50">
+                {{ dictionary }}
+            </textarea>
+            <br>
+            <span>Setelah diurutkan kelas yang memiliki probabilitas tertinggi pada index {{ category }}</span>
+            <br>
+            <span>Index {{ category }} sesuai nama kelas yaitu <b>{{ probability }}</b></span>
+            <br>
+            <span>Dari hasil diatas digunakan untuk mendapatkan vektor gambar pada DB sesuai nama kelas yaitu  <b>{{ probability }}</b></span>
+            <h2>Results:</h2>
+            {% for score in scores %}
+            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
+                <label for="2">Vektor dari gambar input : </label>
+                <br>
+                <textarea id="2" name="2" rows="4" cols="50">
+                    {{ score[2] }}
+                </textarea>
+                <br>
+                <label for="2">Vektor dari database : </label>
+                <br>
+                <textarea id="2" name="2" rows="4" cols="50">
+                    {{ score[3] }}
+                </textarea>
+                <br>
+                <span>Hasil Perhitungan Euclidean antara Vektor input dan vektor pada DB : <b>{{ score[4] }}</b></span>
+                <br>
+                <span>Menampilkan gambar asli dari vektor pada DB : </span>
+                <br>
+                <img src="data:;base64,{{ score[1] }}" height="200px">
+                <figcaption>Jarak Euclidean setelah dikonveri menjadi persen : Kemiripan {{ score[0] }}%</figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    </body>
+</html>
