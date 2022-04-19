@@ -1,5 +1,6 @@
 /static/model/model_resnet.h5
 explain.txt
+playground.py
 /.pytest_cache
 /__pycache__
 /venv
